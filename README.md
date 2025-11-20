@@ -1,45 +1,66 @@
-# Rafidaffa Portal
+# Tattle
 
 AI-powered Text-to-Speech portal with RAG (Retrieval-Augmented Generation) capabilities, featuring document embedding, user management, and multiple TTS voice options.
 
 ## Features
 
-- **Text-to-Speech (TTS)**: Edge TTS integration with 544+ voice samples across multiple languages
-- **RAG System**: Document embedding and retrieval for context-aware AI responses
-- **Multiple LLM Providers**: Support for Google Gemini, Mistral AI, and other providers
-- **User Management**: Multi-user support with authentication and role-based access
-- **Admin Panel**: Superadmin interface for user and system management
-- **Real-time Streaming**: WebSocket and SSE support for streaming responses
+-   **Text-to-Speech (TTS)**: Edge TTS integration with 544+ voice samples across multiple languages
+-   **RAG System**: Document embedding and retrieval for context-aware AI responses
+-   **Multiple LLM Providers**: Support for Google Gemini, Mistral AI, and other providers
+-   **User Management**: Multi-user support with authentication and role-based access
+-   **Admin Panel**: Superadmin interface for user and system management
+-   **Real-time Streaming**: WebSocket and SSE support for streaming responses
 
 ## Technology Stack
 
 ### Backend
-- **Python 3.x** with FastAPI
-- **PHP 7.4+** for frontend and authentication
-- **MySQL** for database
+
+-   **Python 3.x** with FastAPI
+-   **PHP 7.4+** for frontend and authentication
+-   **MySQL** for database
 
 ### Key Libraries
-- FastAPI & Uvicorn (API server)
-- edge-tts (Text-to-Speech)
-- Mistral AI & Google Gemini (LLM providers)
-- httpx (HTTP client)
-- Cryptography (AES-256 encryption)
+
+-   FastAPI & Uvicorn (API server)
+-   edge-tts (Text-to-Speech)
+-   Mistral AI & Google Gemini (LLM providers)
+-   httpx (HTTP client)
+-   Cryptography (AES-256 encryption)
 
 ## Prerequisites
 
-- PHP 7.4 or higher
-- Python 3.8 or higher
-- MySQL 5.7 or higher
-- Composer (optional, for PHP dependencies)
-- pip (Python package manager)
+-   PHP 7.4 or higher
+-   Python 3.8 or higher
+-   MySQL 5.7 or higher
+-   Composer (optional, for PHP dependencies)
+-   pip (Python package manager)
+
+## Important Note
+
+**⚠️ Embedding API Requirement:**
+
+This application requires a custom embedding and vector database API to function properly. The application uses an external embedding service for the RAG (Retrieval-Augmented Generation) functionality.
+
+**You need to create your own embedding and vector database API** to make this work. The application expects an API endpoint that:
+
+-   Accepts document embeddings for storage
+-   Performs vector similarity search
+-   Returns relevant context for RAG queries
+
+The default API endpoint is configured as `https://embedding.2ai.dev`, but you must deploy your own instance or use a compatible embedding service.
+
+**Alternative Options:**
+-   Build your own embedding API using libraries like FAISS, Pinecone, Weaviate, or Qdrant
+-   Use existing vector database services and adapt the API calls
+-   Implement a custom solution using sentence-transformers or similar embedding models
 
 ## Installation
 
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
-cd "Rafidaffa portal"
+git clone https://github.com/gitrhs/tattle
+cd tattle
 ```
 
 ### 2. Database Setup
@@ -47,7 +68,7 @@ cd "Rafidaffa portal"
 Create a MySQL database:
 
 ```sql
-CREATE DATABASE rafidaffa_portal CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE tattle CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 
 Import the database schema (if provided) or create the necessary tables.
@@ -67,7 +88,7 @@ define('DB_HOST', 'localhost');
 define('DB_PORT', '3306');
 define('DB_USER', 'your_database_user');
 define('DB_PASS', 'your_database_password');
-define('DB_NAME', 'rafidaffa_portal');
+define('DB_NAME', 'tattle');
 ```
 
 ### 4. Environment Variables
@@ -86,7 +107,7 @@ DB_HOST=localhost
 DB_PORT=3306
 DB_USER=your_database_user
 DB_PASS=your_database_password
-DB_NAME=rafidaffa_portal
+DB_NAME=tattle
 
 # Generate a secure 32-character key
 ENCRYPTION_SECRET_KEY=your_32_character_secret_key_here
@@ -128,6 +149,7 @@ pip install -r requirements.txt
 **For Python (FastAPI):**
 
 On Linux/Mac:
+
 ```bash
 export ENCRYPTION_SECRET_KEY="your_32_character_key"
 export EMBEDDING_API_KEY="your_embedding_api_key"
@@ -135,6 +157,7 @@ export ALLOWED_ORIGINS="http://localhost"
 ```
 
 On Windows:
+
 ```cmd
 set ENCRYPTION_SECRET_KEY=your_32_character_key
 set EMBEDDING_API_KEY=your_embedding_api_key
@@ -144,9 +167,10 @@ set ALLOWED_ORIGINS=http://localhost
 **For PHP:**
 
 Ensure your web server (Apache/Nginx) or PHP-FPM can access the environment variables. You may need to:
-- Add them to your `.htaccess` or web server configuration
-- Use `putenv()` in a configuration file
-- Add them to your system environment
+
+-   Add them to your `.htaccess` or web server configuration
+-   Use `putenv()` in a configuration file
+-   Add them to your system environment
 
 ## Running the Application
 
@@ -168,10 +192,12 @@ The API will be available at `http://localhost:8001`
 ### Start the PHP Frontend
 
 If using XAMPP, MAMP, or similar:
+
 1. Place the project in your web server's document root
-2. Access via browser: `http://localhost/Rafidaffa%20portal/`
+2. Access via browser: `http://localhost/tattle/`
 
 If using PHP's built-in server:
+
 ```bash
 php -S localhost:8000
 ```
@@ -179,7 +205,7 @@ php -S localhost:8000
 ## Project Structure
 
 ```
-Rafidaffa portal/
+tattle/
 ├── main.py                 # FastAPI backend server
 ├── db_config.php          # Database configuration (not in Git)
 ├── encrypt_helper.php     # API key encryption utilities
@@ -200,28 +226,32 @@ Rafidaffa portal/
 ### Critical Security Measures
 
 1. **Never commit sensitive files:**
-   - `.env` (contains secrets)
-   - `db_config.php` (contains credentials)
-   - `uploads/` (user data)
+
+    - `.env` (contains secrets)
+    - `db_config.php` (contains credentials)
+    - `uploads/` (user data)
 
 2. **Encryption Key:**
-   - The `ENCRYPTION_SECRET_KEY` must be exactly 32 characters
-   - Must be identical in both PHP and Python environments
-   - Rotate this key if it's ever compromised
+
+    - The `ENCRYPTION_SECRET_KEY` must be exactly 32 characters
+    - Must be identical in both PHP and Python environments
+    - Rotate this key if it's ever compromised
 
 3. **API Keys:**
-   - Store all API keys in environment variables only
-   - Never hardcode API keys in source code
-   - Rotate keys if exposed
+
+    - Store all API keys in environment variables only
+    - Never hardcode API keys in source code
+    - Rotate keys if exposed
 
 4. **CORS Settings:**
-   - In production, set specific allowed origins
-   - Never use `ALLOWED_ORIGINS=*` in production
+
+    - In production, set specific allowed origins
+    - Never use `ALLOWED_ORIGINS=*` in production
 
 5. **Database:**
-   - Use strong database passwords
-   - Limit database user privileges
-   - Enable SSL/TLS for database connections in production
+    - Use strong database passwords
+    - Limit database user privileges
+    - Enable SSL/TLS for database connections in production
 
 ### Recommended Production Setup
 
@@ -235,8 +265,9 @@ Rafidaffa portal/
 ## API Documentation
 
 Once the FastAPI server is running, visit:
-- Swagger UI: `http://localhost:8001/docs`
-- ReDoc: `http://localhost:8001/redoc`
+
+-   Swagger UI: `http://localhost:8001/docs`
+-   ReDoc: `http://localhost:8001/redoc`
 
 ## Common Issues
 
@@ -259,18 +290,20 @@ Once the FastAPI server is running, visit:
 ## Development vs Production
 
 ### Development Setup
-- Use `.env` file with local values
-- CORS can be set to `*` for testing
-- Database can use localhost with simple credentials
-- Use `--reload` flag with uvicorn
+
+-   Use `.env` file with local values
+-   CORS can be set to `*` for testing
+-   Database can use localhost with simple credentials
+-   Use `--reload` flag with uvicorn
 
 ### Production Setup
-- Use system environment variables (not `.env` file)
-- Set specific CORS origins
-- Use strong database credentials
-- Enable HTTPS/SSL
-- Use production-grade WSGI server (gunicorn + uvicorn workers)
-- Set up proper logging and monitoring
+
+-   Use system environment variables (not `.env` file)
+-   Set specific CORS origins
+-   Use strong database credentials
+-   Enable HTTPS/SSL
+-   Use production-grade WSGI server (gunicorn + uvicorn workers)
+-   Set up proper logging and monitoring
 
 ## Contributing
 
@@ -287,11 +320,12 @@ Once the FastAPI server is running, visit:
 ## Support
 
 For issues and questions:
-- Create an issue in the GitHub repository
-- Contact: [Your contact information]
+
+-   Create an issue in the GitHub repository
+-   Contact: [Your contact information]
 
 ## Acknowledgments
 
-- Edge TTS for text-to-speech functionality
-- Mistral AI and Google Gemini for LLM capabilities
-- FastAPI framework
+-   Edge TTS for text-to-speech functionality
+-   Mistral AI and Google Gemini for LLM capabilities
+-   FastAPI framework
