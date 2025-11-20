@@ -286,7 +286,9 @@ if ($user_hash) {
         const micBtn = document.getElementById('micBtn');
         const statusText = document.getElementById('statusText');
         const glowElement = document.getElementById('glow');
-        const introAudio = new Audio(config.introAudioUrl);
+        // Add cache-busting parameter to force browser to load fresh audio
+        const timestamp = new Date().getTime();
+        const introAudio = new Audio(config.introAudioUrl + '?v=' + timestamp);
 
         // Disable mic button initially
         micBtn.disabled = true;

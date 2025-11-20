@@ -4,12 +4,62 @@ AI-powered Text-to-Speech portal with RAG (Retrieval-Augmented Generation) capab
 
 ## Features
 
--   **Text-to-Speech (TTS)**: Edge TTS integration with 544+ voice samples across multiple languages
--   **RAG System**: Document embedding and retrieval for context-aware AI responses
--   **Multiple LLM Providers**: Support for Google Gemini, Mistral AI, and other providers
--   **User Management**: Multi-user support with authentication and role-based access
--   **Admin Panel**: Superadmin interface for user and system management
--   **Real-time Streaming**: WebSocket and SSE support for streaming responses
+### 🎙️ Advanced Text-to-Speech (TTS)
+
+-   **Edge TTS Integration**: Leverages Microsoft's Edge TTS engine for high-quality, natural-sounding voice synthesis
+-   **544+ Voice Samples**: Extensive library of voice options across multiple languages, accents, and regions
+-   **Multi-language Support**: Generate speech in dozens of languages including English, Spanish, French, German, Chinese, Japanese, Arabic, and many more
+-   **Voice Customization**: Choose from different voice personas, genders, and speaking styles to match your needs
+-   **Real-time Generation**: Fast audio generation with streaming support for immediate playback
+
+### 🧠 RAG (Retrieval-Augmented Generation) System
+
+-   **Document Embedding**: Upload and process documents (PDFs, text files) to create searchable embeddings
+-   **Vector Database Integration**: Store and retrieve document embeddings using vector similarity search
+-   **Context-Aware Responses**: AI responses are grounded in your uploaded documents, reducing hallucinations
+-   **Semantic Search**: Find relevant information across your document collection using natural language queries
+-   **Collection Management**: Organize documents into named collections for better organization and retrieval
+-   **Top-K Retrieval**: Configure how many relevant documents to retrieve for each query
+
+### 🤖 Multiple LLM Provider Support
+
+-   **Google Gemini**: Integration with Google's Gemini models for powerful language understanding
+-   **Mistral AI**: Support for Mistral's open-source and commercial language models
+-   **Flexible Provider Selection**: Switch between different LLM providers based on your needs and API availability
+-   **Streaming Responses**: Real-time token streaming for faster perceived response times
+-   **Custom System Prompts**: Configure AI behavior with custom instructions and personas
+
+### 👥 User Management & Authentication
+
+-   **Multi-user Support**: Fully-featured user system with individual accounts and settings
+-   **Secure Authentication**: Password hashing using industry-standard bcrypt encryption
+-   **Role-based Access Control**: Differentiate between regular users and superadmins
+-   **User-specific Settings**: Each user can configure their own preferences and API keys
+-   **Session Management**: Secure PHP session handling with proper timeout and security measures
+-   **Encrypted API Keys**: User API keys are encrypted using AES-256 encryption before storage
+
+### ⚙️ Admin Panel & Management
+
+-   **Superadmin Interface**: Dedicated admin panel for system management and oversight
+-   **User Administration**: Add, remove, and manage user accounts
+-   **System Configuration**: Global settings management for TTS and AI providers
+-   **Model Refresh**: Update available AI models and voice options
+-   **Monitoring Tools**: Debug and monitor system performance and usage
+
+### 🔄 Real-time Communication
+
+-   **WebSocket Support**: Bi-directional real-time communication for interactive experiences
+-   **Server-Sent Events (SSE)**: Efficient streaming of AI responses and status updates
+-   **Progress Tracking**: Real-time feedback during document processing and AI generation
+-   **Async Processing**: Non-blocking operations for better performance and user experience
+
+### 🔐 Security & Encryption
+
+-   **AES-256 Encryption**: Military-grade encryption for sensitive API keys
+-   **Environment Variables**: Secure configuration management with no hardcoded secrets
+-   **SQL Injection Protection**: Prepared statements and parameterized queries throughout
+-   **XSS Prevention**: Input sanitization and output encoding
+-   **CORS Configuration**: Configurable cross-origin resource sharing for production security
 
 ## Technology Stack
 
@@ -50,6 +100,7 @@ This application requires a custom embedding and vector database API to function
 The default API endpoint is configured as `https://embedding.2ai.dev`, but you must deploy your own instance or use a compatible embedding service.
 
 **Alternative Options:**
+
 -   Build your own embedding API using libraries like FAISS, Pinecone, Weaviate, or Qdrant
 -   Use existing vector database services and adapt the API calls
 -   Implement a custom solution using sentence-transformers or similar embedding models
@@ -221,47 +272,6 @@ tattle/
 └── voice_samples/         # TTS voice samples (large directory)
 ```
 
-## Security Considerations
-
-### Critical Security Measures
-
-1. **Never commit sensitive files:**
-
-    - `.env` (contains secrets)
-    - `db_config.php` (contains credentials)
-    - `uploads/` (user data)
-
-2. **Encryption Key:**
-
-    - The `ENCRYPTION_SECRET_KEY` must be exactly 32 characters
-    - Must be identical in both PHP and Python environments
-    - Rotate this key if it's ever compromised
-
-3. **API Keys:**
-
-    - Store all API keys in environment variables only
-    - Never hardcode API keys in source code
-    - Rotate keys if exposed
-
-4. **CORS Settings:**
-
-    - In production, set specific allowed origins
-    - Never use `ALLOWED_ORIGINS=*` in production
-
-5. **Database:**
-    - Use strong database passwords
-    - Limit database user privileges
-    - Enable SSL/TLS for database connections in production
-
-### Recommended Production Setup
-
-1. Use HTTPS for all connections
-2. Enable PHP session security settings
-3. Set up rate limiting on API endpoints
-4. Regular security audits and dependency updates
-5. Implement logging and monitoring
-6. Use a reverse proxy (Nginx) in front of FastAPI
-
 ## API Documentation
 
 Once the FastAPI server is running, visit:
@@ -315,7 +325,31 @@ Once the FastAPI server is running, visit:
 
 ## License
 
-[Specify your license here]
+This project is licensed under the MIT License - see below for details:
+
+```
+MIT License
+
+Copyright (c) 2025 Rafi Daffa Ramadhani
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
 
 ## Support
 
