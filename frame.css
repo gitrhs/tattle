@@ -1,0 +1,213 @@
+/* --- BASIC SETUP --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, sans-serif;
+}
+
+body {
+    background-color: #ffffff;
+    /* White background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+/* --- LOADING SCREEN --- */
+#loadingScreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#loadingText {
+    font-size: 24px;
+    color: #333;
+    font-weight: 500;
+}
+
+#mainContent {
+    display: none;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+#mainContent.loaded {
+    display: block;
+}
+
+.live-indicator {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 18px;
+    font-weight: 500;
+    z-index: 10;
+    color: #555;
+    /* Slightly darker text */
+}
+
+/* --- CHAT CONTAINER --- */
+#chatContainer {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    max-height: calc(100vh - 250px);
+    overflow-y: auto;
+    z-index: 10;
+    padding: 20px 0;
+    /* Hide scrollbar */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+}
+
+#chatContainer::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, Opera */
+}
+
+.message {
+    display: flex;
+    margin-bottom: 15px;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message.user {
+    justify-content: flex-end;
+}
+
+.message.ai {
+    justify-content: flex-start;
+}
+
+.message-bubble {
+    max-width: 70%;
+    padding: 12px 16px;
+    border-radius: 18px;
+    font-size: 15px;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+.message.user .message-bubble {
+    background-color: #2b6aff;
+    color: #ffffff;
+    border-bottom-right-radius: 4px;
+}
+
+.message.ai .message-bubble {
+    background-color: #f0f0f5;
+    color: #333;
+    border-bottom-left-radius: 4px;
+}
+
+.empty-state {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+    margin-top: 50px;
+}
+
+/* --- THE REACTIVE GLOW --- */
+.ambient-glow {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    /* Default Static Height */
+    background: linear-gradient(to top, rgba(43, 106, 255, 0.7), rgba(0, 212, 255, 0.5), transparent);
+    /* Blue gradient with more transparency */
+    opacity: 0.8;
+    /* Slightly higher opacity for visibility on white */
+    filter: blur(45px);
+    pointer-events: none;
+    z-index: 1;
+    transition: height 0.05s linear, opacity 0.05s linear;
+}
+
+/* --- BUTTON AREA --- */
+.mic-container {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    z-index: 10;
+}
+
+.btn-mic {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: #e0e0e0;
+    /* Light grey button */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
+    transition: transform 0.1s;
+}
+
+.btn-mic:active {
+    transform: scale(0.95);
+}
+
+/* State: When waiting for permission or off */
+.btn-mic.off {
+    background-color: #e0e0e0;
+    /* Still light grey, but icon changes */
+}
+
+.btn-mic.off svg {
+    fill: #888;
+    /* Greyed out icon */
+}
+
+.btn-mic svg {
+    width: 32px;
+    height: 32px;
+    fill: #2b6aff;
+    /* Blue icon when active */
+    transition: fill 0.2s;
+}
+
+.btn-mic.recording {}

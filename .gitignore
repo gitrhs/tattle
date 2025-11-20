@@ -1,0 +1,76 @@
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Database configuration
+db_config.php
+
+# User uploads and generated content
+uploads/
+intro_voice/
+*.mp3
+*.wav
+*.ogg
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv
+*.egg-info/
+dist/
+build/
+
+# PHP
+vendor/
+composer.phar
+composer.lock
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.claude/
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+*.sql
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Large static files (consider Git LFS if needed)
+voice_samples/
+
+# Sensitive files
+*_key.php
+*secret*.php
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Test files (optional - uncomment if you don't want to commit test files)
+# test_*.php
+# debug_*.php
+# demo.php

@@ -1,0 +1,23 @@
+# FastAPI and server
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.0.0
+
+# Text-to-Speech
+edge-tts>=6.1.0
+
+# HTTP client
+httpx>=0.25.0
+
+# AI/LLM APIs
+mistralai>=0.4.0
+google-genai>=0.2.0
+
+# Cryptography
+cryptography>=41.0.0
+
+# Optional: Development dependencies
+# Uncomment if needed for development
+# pytest>=7.4.0
+# black>=23.0.0
+# flake8>=6.1.0
